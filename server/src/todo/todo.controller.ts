@@ -8,6 +8,7 @@ import {
   Delete,
   ParseIntPipe,
   Request,
+  ValidationPipe,
 } from '@nestjs/common';
 import { TodoService } from './todo.service';
 import { CreateTodoDto } from './dto/create-todo.dto';
@@ -24,8 +25,10 @@ export class TodoController {
   @Post()
   async create(
     @Request() request,
-    @Body() createTodoDto: CreateTodoDto,
+    @Body(new ValidationPipe({transform: true})) createTodoDto: CreateTodoDto,
   ): Promise<Todo> {
+    console.log(request);
+    
     return this.todoService.create(request.user.id, createTodoDto);
   }
 

@@ -7,9 +7,9 @@ import { HttpExceptionFilter } from './error/http-exception.filter';
 import { LogInterceptor } from './log/log.interceptor';
 import { TransformInterceptor } from './transform/transform.interceptor';
 import { ReportLogger } from './log/ReportLogger';
-import { ValidationPipe } from '@nestjs/common';
+import { BadRequestException, ValidationPipe } from '@nestjs/common';
 import { AllExceptionFilter } from './error/all-exception.filter';
-
+import { BadRequestExceptionFilter } from './error/badrequest-exeption.filter';
 const setupSwagger = (app) => {
   const config = new DocumentBuilder()
     .addBearerAuth()
@@ -40,7 +40,7 @@ async function bootstrap() {
   app.useStaticAssets(join(__dirname, '..', 'upload_dist'));
 
   app.setGlobalPrefix('api');
-  app.useGlobalFilters(new HttpExceptionFilter(), new AllExceptionFilter());
+  app.useGlobalFilters(new AllExceptionFilter(),new HttpExceptionFilter());
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(
     new LogInterceptor(reportLogger),

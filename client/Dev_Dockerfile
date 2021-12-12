@@ -1,5 +1,5 @@
 # 使用 node 镜像
-FROM node
+FROM node:12.18.1
 
 # 准备工作目录
 RUN mkdir -p /app/client

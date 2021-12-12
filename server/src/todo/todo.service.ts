@@ -14,8 +14,7 @@ export class TodoService {
 
   async create(userId: number, createTodoDto: CreateTodoDto): Promise<Todo> {
     const user = await this.userRepository.findOne(userId);
-    const { title, description, media } = createTodoDto;
-
+    const { title, description, media } = createTodoDto;    
     const todo = new Todo();
     todo.title = title;
     todo.description = description;
